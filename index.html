@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="./src/css/reset.css" />
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=star_rate"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
     />
     <script src="./src/js/app.js" type="module" defer></script>
     <link
@@ -23,13 +23,21 @@
   <body>
     <header>
       <div class="wrapper">
-        <h1>영화 검색</h1>
-        <input
-          type="text"
-          id="movie-search"
-          placeholder="영화를 검색하세요.."
-        />
-        <p class="btn-text">북마크 보기</p>
+        <div class="title-area">
+          <h1>영화 검색</h1>
+          <p class="btn-text">
+            <i class="material-symbols-outlined"> family_star </i>
+          </p>
+        </div>
+        <div class="search-bar">
+          <input
+            type="text"
+            class="search-input"
+            id="movie-search"
+            placeholder="영화를 검색하세요.."
+          />
+          <i class="material-symbols-outlined"> search </i>
+        </div>
       </div>
     </header>
     <main>

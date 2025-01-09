@@ -62,31 +62,84 @@
   }
 }
 header{
-  background-color: var(--heading-primary);
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 0) 100%);
   color: var(--text-white);
+  z-index: 1000;
+  padding: 1rem 2rem;
+  position: sticky;
+  top:0;
+  width: 100%;
 }
 header .wrapper{
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
   max-width: 768px;
+  width: 100%;
   margin: 0 auto;
 }
-header .wrapper h1{
+header .wrapper .title-area{
+  width: 100%;
+  display: flex;
+}
+header .wrapper .title-area h1{
+  flex:1;
+  text-align: center;
   font-size: var(--header-title-size);
 }
-header input{
-  padding: 0.5rem;
+header .search-bar{
+  position: relative;
   width: 100%;
+  display: flex;
+  align-items: center;
+}
+header .search-bar .search-input{
+  width: 100%;
+  border: 0;
+  padding: 0.75rem 3.5rem 0.75rem 1rem;
   margin: 0.5rem 0;
-  border-radius: 0.25rem;
+  color: var(--text-white);
+  border-radius: 1.25rem;
+  background-color: rgba(64, 64, 64, 0.7);
+}
+header .search-bar i {
+  position: absolute;
+  right: 1rem;
 }
 header .btn-text{
-  color: var(--text-white);
+  color: var(--text-neon-yellow);
   font-size: 0.75rem;
   margin: 0.5rem 0;
+  cursor: pointer;
+}
+header .btn-text i{
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+header .btn-text i:hover {
+  animation: waveAnimation 1s ease infinite;
+}
+
+@keyframes waveAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  25% {
+    transform: rotate(10deg);
+  }
+
+  50% {
+    transform: rotate(0deg);
+  }
+
+  75% {
+    transform: rotate(-10deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
 }
 main{
   max-width: 1200px;
@@ -139,6 +192,7 @@ main .movie-list li .card-grade{
   color: var(--text-warm-white);
   margin: 0.5rem 0;
   display: flex;
+  gap: 0.2rem;
   justify-content: center;
   align-items: center;
 }
