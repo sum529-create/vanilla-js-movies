@@ -1,0 +1,155 @@
+/* 색상 관련 변수 */
+:root {
+  --text-primary: #333333;
+  --text-secondary: #555555;
+  --heading-primary: #1a1a1a;
+  --heading-secondary: #222222;
+  --heading-tertiary: #444444;
+
+  --text-accent: #ff4081;
+  --text-success: #4caf50;
+  --text-warning: #ff9800;
+  --text-error: #f44336;
+
+  --link-primary: #1e90ff;
+  --link-hover: #ff6347;
+
+  --text-light: #f5f5f5;
+
+  --text-dark-on-light: #212121;
+  --text-light-on-dark: #e0e0e0;
+
+  --text-white: #ffffff;
+  --text-off-white: #f8f8f8;
+  --text-light-gray: #f0f0f0;
+  --text-warm-white: #fff8e1;
+  --text-cool-white: #e1f5fe;
+  --text-soft-gray: #dcdcdc;
+  --text-mist-white: #e8e8e8;
+
+  --text-neon-pink: #ff00ff;
+  --text-neon-green: #00ff00;
+  --text-neon-blue: #00bfff;
+  --text-neon-orange: #ff4500;
+  --text-neon-yellow: #ffff00;
+  --text-neon-cyan: #00ffff;
+}
+/* 카드 리스트 관련 변수 */
+:root{
+  --header-title-size: 2rem;
+  --card-list-gap: 1.5rem;
+  --card-list-count: 6;
+  --card-main-title-size: 1.125rem;
+  --card-sub-text: 0.9rem;
+}
+@media (max-width: 1440px){
+  :root{
+    --card-list-count: 5;
+  }
+}
+@media (max-width: 1024px) {
+  :root{
+    --card-list-gap: 1rem;
+    --card-list-count: 4;
+    --card-main-title-size: 1.25rem;
+  }
+}
+@media (max-width: 768px) {
+  :root{
+    --card-list-gap: 0.75rem;
+    --card-list-count: 2;
+    --card-main-title-size: 1rem;
+  }
+}
+header{
+  background-color: var(--heading-primary);
+  color: var(--text-white);
+}
+header .wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  max-width: 768px;
+  margin: 0 auto;
+}
+header .wrapper h1{
+  font-size: var(--header-title-size);
+}
+header input{
+  padding: 0.5rem;
+  width: 100%;
+  margin: 0.5rem 0;
+  border-radius: 0.25rem;
+}
+header .btn-text{
+  color: var(--text-white);
+  font-size: 0.75rem;
+  margin: 0.5rem 0;
+}
+main{
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+main .movie-list{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--card-list-gap);
+}
+main .movie-list li{
+  width: calc((100% - ((var(--card-list-count) - 1) * var(--card-list-gap))) / var(--card-list-count));
+  box-shadow: 10px 10px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  background-color: #000;
+  border-radius: 1rem;
+}
+main .movie-list li img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.3s ease, transform 1s ease;
+}
+main .movie-list li .img-area-info{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  opacity: 0;
+  pointer-events: none;
+  text-align: center;
+  transition: opacity 0.3s ease;
+}
+main .movie-list li .card-title{
+  font-size: var(--card-main-title-size);
+  color:var(--text-off-white);
+  font-weight: 700;
+  line-height: 1;
+  word-break: keep-all;
+  margin: 0.5rem 0;
+}
+main .movie-list li .card-grade{
+  font-size: var(--card-sub-text);
+  color: var(--text-warm-white);
+  margin: 0.5rem 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+main .movie-list li .card-grade i{
+  color:var(--text-neon-green);
+  font-size: var(--card-sub-text);
+}
+main .movie-list li:hover img{
+  opacity: 0.2;
+  transform: scale(1.25);
+}
+main .movie-list li:hover .img-area-info{
+  opacity: 1;
+}
