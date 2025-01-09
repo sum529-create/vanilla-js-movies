@@ -26,6 +26,6 @@
 │ │ └── style.css
 │ ├── /js
 │ │ ├── app.js
-│ │ └── api.js
-│ └── index.html
+│ └─└── api.js
+│── index.html
 └── README.md
