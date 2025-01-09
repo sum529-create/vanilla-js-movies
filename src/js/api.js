@@ -11,8 +11,6 @@ async function loadApiKey() {
 }
 
 async function fetchMovieList() {
-  if (!MOVIE_FETCH_API_KEY) await loadApiKey();
-
   const url =
     "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
   const options = {
@@ -30,4 +28,22 @@ async function fetchMovieList() {
   }
 }
 
-export { fetchMovieList };
+async function searchMovie(query) {
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: MOVIE_FETCH_API_KEY,
+    },
+  };
+
+  try {
+    const res = (await fetch(url, options)).json();
+    return res;
+  } catch (error) {
+    console.error("Failed to Search Movie Item: ", error);
+  }
+}
+
+export { loadApiKey, fetchMovieList, searchMovie };
