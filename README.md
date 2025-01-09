@@ -21,11 +21,20 @@
 ## 구조
 
 /project-root
+
 ├── /src
-│ ├── /css
-│ │ └── style.css
-│ ├── /js
-│ │ ├── app.js
-│ │ └── api.js
-│ └── index.html
+
+│   ├── /css
+
+│   │   └── style.css
+
+│   ├── /js
+
+│   │   ├── app.js
+
+│   │   └── api.js
+
+│   └── index.html
+
 └── README.md
+
