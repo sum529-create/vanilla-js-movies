@@ -1,6 +1,6 @@
 # vanilla-js-movies
 
-바닐라 JS와 TMDB API로 구축된 갇나한 영화 리스트및 검색을 할 수 있는 프로젝트입니다.
+바닐라 JS와 TMDB API로 구축된 영화 리스트 조회 및 검색을 할 수 있는 프로젝트입니다.
 
 ## 소개
 
@@ -37,4 +37,3 @@
 │── index.html
 
 └── README.md
-
