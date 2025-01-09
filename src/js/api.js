@@ -29,6 +29,8 @@ async function fetchMovieList() {
 }
 
 async function searchMovie(query) {
+  let res = [];
+
   const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
   const options = {
     method: "GET",
@@ -39,11 +41,12 @@ async function searchMovie(query) {
   };
 
   try {
-    const res = (await fetch(url, options)).json();
-    return res;
+    res = await (await fetch(url, options)).json();
   } catch (error) {
     console.error("Failed to Search Movie Item: ", error);
   }
+
+  return res;
 }
 
 export { loadApiKey, fetchMovieList, searchMovie };

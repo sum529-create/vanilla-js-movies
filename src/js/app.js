@@ -2,7 +2,6 @@ import { loadApiKey, fetchMovieList, searchMovie } from "./api.js";
 
 const $movieCard = document.querySelector(".movie-list");
 const $movieSearch = document.querySelector("#movie-search");
-(() => getMovieList())();
 
 const getMovieItem = (data) => {
   if (data) {
@@ -39,13 +38,20 @@ const getMovieItem = (data) => {
   }
 };
 
+const toggleLoading = (show) => {
+  document.querySelector("#loading").style.display = show ? "block" : "none";
+};
+
 async function getMovieList() {
+  toggleLoading(true);
   await loadApiKey();
   const res = await fetchMovieList();
-
+  toggleLoading(false);
   const data = res.results;
   getMovieItem(data);
 }
+
+(() => getMovieList())();
 
 const throttle = (func, delay) => {
   let timer;
@@ -60,8 +66,9 @@ const throttle = (func, delay) => {
 $movieSearch.addEventListener(
   "input",
   throttle(async (event) => {
+    toggleLoading(true);
     const res = await searchMovie(event.target.value);
-
+    toggleLoading(false);
     if (event.target.value === "") {
       return await getMovieList();
     }
