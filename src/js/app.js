@@ -1,11 +1,11 @@
 import { loadApiKey, fetchMovieList, searchMovie } from "./api.js";
 
-const $movieCard = document.querySelector(".movie-list");
+const $movieList = document.querySelector(".movie-list");
 const $movieSearch = document.querySelector("#movie-search");
 
 const getMovieItem = (data) => {
   if (data) {
-    $movieCard.innerHTML = "";
+    $movieList.innerHTML = "";
     const movieList = data
       .map((e) => {
         let title = e.title;
@@ -34,7 +34,7 @@ const getMovieItem = (data) => {
       })
       .join("");
 
-    $movieCard.innerHTML = movieList;
+    $movieList.innerHTML = movieList;
   }
 };
 
