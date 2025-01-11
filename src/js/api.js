@@ -49,4 +49,21 @@ async function searchMovie(query) {
   return res;
 }
 
-export { loadApiKey, fetchMovieList, searchMovie };
+async function detailMovie(id) {
+  const url = `https://api.themoviedb.org/3/movie/${id}}?language=en-US`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: MOVIE_FETCH_API_KEY,
+    },
+  };
+  try {
+    const res = await fetch(url, options);
+    return res.json();
+  } catch (error) {
+    console.error("Failed to load Detail Movie: ", error);
+  }
+}
+
+export { loadApiKey, fetchMovieList, searchMovie, detailMovie };
