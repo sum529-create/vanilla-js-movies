@@ -1,4 +1,5 @@
 let MOVIE_FETCH_API_KEY = "";
+const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
 async function loadApiKey() {
   try {
@@ -66,4 +67,32 @@ async function detailMovie(id) {
   }
 }
 
-export { loadApiKey, fetchMovieList, searchMovie, detailMovie };
+async function getMovieAbout(movieId) {
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`;
+  const options = {
+    method: "GET",
+    headers: {
+      accept: "application/json",
+      Authorization: MOVIE_FETCH_API_KEY,
+    },
+  };
+  try {
+    const res = await (await fetch(url, options)).json();
+
+    if (res) {
+      const videoInfo = res.results.find(
+        (video) =>
+          (video.type =
+            "Trailer" && video.official === true && video.site === "YouTube")
+      );
+      const officialUrl = videoInfo
+        ? `${YOUTUBE_BASE_URL}${videoInfo.key}`
+        : "";
+      return officialUrl;
+    }
+  } catch (error) {
+    console.error("Failed to Get Movie About Data: ", error);
+  }
+}
+
+export { loadApiKey, fetchMovieList, searchMovie, detailMovie, getMovieAbout };

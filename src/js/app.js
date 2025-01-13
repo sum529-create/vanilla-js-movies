@@ -1,4 +1,10 @@
-import { loadApiKey, fetchMovieList, searchMovie, detailMovie } from "./api.js";
+import {
+  loadApiKey,
+  fetchMovieList,
+  searchMovie,
+  detailMovie,
+  getMovieAbout,
+} from "./api.js";
 
 const $movieList = document.querySelector(".movie-list");
 const $movieSearch = document.querySelector("#movie-search");
@@ -7,15 +13,16 @@ const $dim = document.querySelector(".dim");
 const $closeBtn = document.querySelector(".closeBtn");
 const $modalContent = document.querySelector(".modal-content");
 
+const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
+
 const setMovieItem = (data) => {
   if (data) {
     $movieList.innerHTML = "";
-    $modal.style.display = "block"; // 임시값
     const movieList = data
       .map((e, i) => {
         let title = e.title;
         let grade = Math.round(e.vote_average * 100) / 100;
-        let imgUrl = `https://image.tmdb.org/t/p/w500${e.poster_path}` || "";
+        let imgUrl = `${BASE_IMAGE_URL}${e.poster_path}` || "";
         let classIdx = (i + 1).toString().padStart(2, "0");
 
         return `
@@ -43,9 +50,63 @@ const setMovieItem = (data) => {
     $movieList.innerHTML = movieList;
   }
 };
-const setMovieAboutItem = (data) => {
+const setMovieAboutItem = (data, url) => {
+  console.log(data);
+
   if (data) {
     $modalContent.innerHTML = "";
+    let imgUrlMo = `${BASE_IMAGE_URL}${data.backdrop_path}` || "";
+    let imgUrl = `${BASE_IMAGE_URL}${data.poster_path}` || "";
+    let grade = Math.round(data.vote_average * 100) / 100;
+    const movieAbout = `
+        <div class="modal-detail">
+          <h1>${data.title}</h1>
+          <div class="meta-info">
+            <ul>
+              <li>${data.adult ? "청불" : "전체"}</li>
+              <li>${data.runtime}분</li>
+              <li>${data.release_date.slice(0, 4)}</li>
+            </ul>
+          </div>
+          <div class="movie-rating">
+            <i class="material-symbols-outlined star-icon"> star_rate </i>
+            <span class="rating">${grade}</span>
+            <span class="nation">${data.origin_country[0]}</span>
+          </div>
+          <div class="genre-area">
+            ${data.genres.map((genre) => `<span>${genre.name}</span>`).join("")}
+          </div>
+          <div class="movie-plot">
+            <p class="sub-tit">줄거리</p>
+            <p class="plot-txt">${data.overview}</p>
+          </div>
+        </div>
+        <div class="modal-img">
+          <img
+            src="${imgUrl}"
+            alt="${data.title}"
+            class="poster"
+          />
+          <img
+            src="${imgUrlMo}"
+            alt="${data.title}"
+            class="poster-mo"
+          />
+          </div>
+          <div class="action-area">
+            <button id="trailerBtn" class="btn btn-primary">예고편 보기</button>
+            <button id="moreBtn" class="btn">더보기</button>
+          </div>
+      `;
+    $modalContent.innerHTML = movieAbout;
+    const $moreBtn = document.querySelector("#moreBtn");
+    const $trailerBtn = document.querySelector("#trailerBtn");
+    $trailerBtn.addEventListener("click", () => {
+      window.open(url, "_blank");
+    });
+    $moreBtn.addEventListener("click", () => {
+      window.open(data.homepage, "_blank");
+    });
   }
 };
 
@@ -99,9 +160,12 @@ async function openModal(e) {
   if (item) {
     const id = item.getAttribute("data-id");
     const res = await detailMovie(id);
-    console.log(res);
+
+    // 외부 영화 소개 비디오 링크 가져오기
+    const movieUrl = await getMovieAbout(res.id);
 
     $modal.style.display = "block";
+    setMovieAboutItem(res, movieUrl);
   }
 }
 $movieList.addEventListener("click", openModal);

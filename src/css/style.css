@@ -34,13 +34,33 @@
   --text-neon-yellow: #ffff00;
   --text-neon-cyan: #00ffff;
 }
-/* 카드 리스트 관련 변수 */
+/* 웹 반응형 관련 변수 */
 :root{
   --header-title-size: 2rem;
   --card-list-gap: 1.5rem;
   --card-list-count: 6;
   --card-main-title-size: 1.125rem;
   --card-sub-text: 0.9rem;
+  --modal-width: 800px;
+  --modal-max-width: auto;
+  --modal-height: 31.25rem;
+  --modal-content-flex-dir: row;
+  --modal-item-size: 50%;
+  --modal-img-gradient: linear-gradient(90deg,
+      rgba(26, 26, 26, 1) 0%,
+      rgba(26, 26, 26, 0) 100%);
+  --modal-detail-padding: 3rem 2rem;
+  --modal-detail-title: 1.75rem;
+  --modal-detail-rating-margin: 1.5rem 0;
+  --modal-detail-genre-margin: 1rem 0;
+  --modal-detail-genre-item-padding: .5rem 1.25rem;
+  --modal-detail-genre-item-margin: .2rem .375rem;
+  --modal-detail-movie-rating-area-gap: 1.5rem;
+  --modal-detail-movie-plot-line-cnt: 7;
+  --modal-action-area-right: 1rem;
+  --modal-action-area-transform: none;
+  --modal-action-area-btn-padding: 0.75rem 1.25rem;
+  --modal-action-area-btn-min-width: 7.5rem;
 }
 @media (max-width: 1440px){
   :root{
@@ -52,13 +72,37 @@
     --card-list-gap: 1rem;
     --card-list-count: 4;
     --card-main-title-size: 1.25rem;
+    --modal-width: 70vw;
+    --modal-max-width: 31.25rem;
+    --modal-height: auto;
+    --modal-content-flex-dir: column-reverse;
+    --modal-item-size: 100%;
+    --modal-img-gradient: linear-gradient(0deg,
+          rgba(26, 26, 26, 1) 0%,
+          rgba(26, 26, 26, 0) 100%);
+    --modal-detail-padding: 1.5rem 1rem 6.375rem 1rem;
+    --modal-detail-title: 1.5rem;
+    --modal-detail-rating-margin: .5rem 0;
+    --modal-detail-genre-margin: .5rem 0;
+    --modal-detail-genre-item-padding: .5rem 1rem;
+    --modal-detail-genre-item-margin: .2rem .375rem .2rem 0;
+    --modal-detail-movie-plot-line-cnt: 5;
+    --modal-action-area-right: 50%;
+    --modal-action-area-transform: translateX(50%);
   }
+  .modal .modal-content .modal-img .poster{display: none;}
+  .modal .modal-content .modal-img .poster-mo{display: block;}
 }
 @media (max-width: 768px) {
   :root{
     --card-list-gap: 0.75rem;
     --card-list-count: 2;
     --card-main-title-size: 1rem;
+    --modal-width: calc(100vw - 3rem);
+    --modal-detail-movie-plot-line-cnt: 3;
+    --modal-detail-movie-rating-area-gap: 1rem;
+    --modal-action-area-btn-padding: 0.75rem 1rem;
+    --modal-action-area-btn-min-width: 6.25rem;
   }
 }
 body{
@@ -273,12 +317,15 @@ main .loading-area{
   transform: translate(-50%, -50%);
 }
 .modal .modal-content{
-  width: 800px;
+  width: var(--modal-width);
+  max-width: var(--modal-max-width);
   border-radius: 1rem;
-  height: 500px;
+  height: var(--modal-height);
   position: relative;
   display: flex;
   overflow: hidden;
+  background-color: rgba(26, 26, 26, 1);
+  flex-direction: var(--modal-content-flex-dir);
 }
 .modal .icon-area{
   position: absolute;
@@ -295,17 +342,19 @@ main .loading-area{
   border-radius: 50%;
 }
 .modal .modal-detail{
-  width: 50%;
-  background-color: rgba(26, 26, 26, 1);
+  width: var(--modal-item-size);
   position: relative;
   z-index: 100;
-  padding: 2rem;
+  padding: var(--modal-detail-padding);
 }
 .modal .modal-detail h1{
-  font-size: 1.75rem;
-  margin: .75rem 0;
+  font-size: var(--modal-detail-title);
   color: #fff;
   font-weight: 700;
+  line-height: 1;
+}
+.modal .modal-detail .meta-info{
+  margin: 1rem 0;
 }
 .modal .modal-detail .meta-info ul{
   display: flex;
@@ -325,15 +374,15 @@ main .loading-area{
   left: -14px;
 }
 .modal .modal-detail .movie-rating{
-  margin: 1.5rem 0;
+  margin: var(--modal-detail-rating-marin);
   display: flex;
-  gap:1.5rem;
+  gap: var(--modal-detail-movie-rating-area-gap);
   font-size: 1rem;
   align-items: center;
   line-height: 1;
 }
 .modal .modal-detail .movie-rating .star-icon{
-  color: #FFFF55;
+  color: #f5c518;
 }
 .modal .modal-detail .movie-rating .rating{
   font-size: 1.125rem;
@@ -346,15 +395,17 @@ main .loading-area{
 }
 .modal .modal-detail .genre-area{
   display: flex;
-  gap: 0.75rem;
-  margin: 0.25rem 0;
+  margin: var(--modal-detail-genre-margin);
+  flex-wrap: wrap;
 }
 .modal .modal-detail .genre-area span{
   font-size: 0.875rem;
   color: #fff;
-  background-color: #555555;
+  background-color: #444;
   border-radius: 3rem;
-  padding: 0.25rem 1rem;
+  padding: var(--modal-detail-genre-item-padding);
+  line-height: 1;
+  margin: var(--modal-detail-genre-item-margin);
 }
 .modal .modal-detail .movie-plot .sub-tit{
   font-size: 0.75rem;
@@ -365,25 +416,30 @@ main .loading-area{
   margin: 1rem 0;
   font-size:0.875rem;
   line-height: 1.5;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: var(--modal-detail-movie-plot-line-cnt);
 }
 .modal .modal-img{
-  width: 50%;
-  aspect-ratio: 2/3;
+  width: var(--modal-item-size);
   overflow: hidden;
   position: relative;
+  margin:0;
+  font-size: 0;
 }
 .modal .modal-img img{
   width: 100%;
   height: 100%;
   object-fit: cover;
   display: block;
+  margin-bottom: -1px;
 }
 .modal .modal-img::before {
   content: "";
   position: absolute;
-  background: linear-gradient(90deg,
-      rgba(26, 26, 26, 1) 0%,
-      rgba(26, 26, 26, 0) 100%);
+  background: var(--modal-img-gradient);
   pointer-events: none;
   top: 0;
   bottom: 0;
@@ -391,20 +447,38 @@ main .loading-area{
   right: 0;
   z-index: 101;
 }
-.modal .modal-img .action-area{
+.modal .modal-img .poster-mo{
+  display: none;
+}
+.modal .action-area{
   display: flex;
   position: absolute;
-  right: 1rem;
+  right: var(--modal-action-area-right);
+  transform: var(--modal-action-area-transform);
   bottom: 2rem;
   gap: 1rem;
+  z-index: 102;
+  justify-content: center;
 }
-.modal .modal-img .action-area .btn{
+.modal .action-area .btn{
   border: none;
   border-radius: 2rem;
   font-size: 0.875rem;
-  padding: 0.75rem 1.25rem;
+  padding: var(--modal-action-area-btn-padding);
   font-weight: 700;
-  min-width: 120px;
+  min-width: var(--modal-action-area-btn-min-width);
   min-height: 40px;
   line-height: 1;
+  background-color: #333;
+  color: var(--text-white);
+  cursor: pointer;
+}
+.modal .action-area .btn:hover{
+  background-color: #222;
+}
+.modal .action-area .btn-primary{
+  background-color:#e50914;
+}
+.modal .action-area .btn-primary:hover{
+  background-color: #ae050d;
 }
