@@ -158,16 +158,18 @@ header .search-bar i {
   position: absolute;
   right: 1rem;
 }
-header .btn-text{
+header .btn-bookmark{
   color: var(--text-neon-yellow);
   font-size: 0.75rem;
   margin: 0.5rem 0;
   cursor: pointer;
+  display: flex;
+  align-self: center;
 }
-header .btn-text i{
+header .btn-bookmark i{
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
-header .btn-text i:hover {
+header .btn-bookmark i:hover {
   animation: waveAnimation 1s ease infinite;
 }
 
@@ -217,6 +219,7 @@ main .movie-list li{
   overflow: hidden;
   background-color: #000;
   border-radius: 1rem;
+  cursor: pointer;
 }
 main .movie-list li img{
   width: 100%;
@@ -384,6 +387,25 @@ main .loading-area{
 .modal .modal-detail .movie-rating .star-icon{
   color: #f5c518;
 }
+.modal .modal-detail .movie-rating .bookmark{
+  padding: .125rem;
+  display: flex;
+  line-height: 28px;
+  cursor: pointer;
+}
+.modal .modal-detail .movie-rating .bookmark:hover{
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+}
+.modal .modal-detail .movie-rating .bookmark-icon{
+  color: #999;
+}
+.modal .modal-detail .movie-rating .bookmark-add-icon{
+  color: #eee;
+}
+.modal .modal-detail .movie-rating .bookmark-checked-icon{
+  color: #e50914;
+}
 .modal .modal-detail .movie-rating .rating{
   font-size: 1.125rem;
   color: #fff;
@@ -392,6 +414,7 @@ main .loading-area{
 .modal .modal-detail .movie-rating .nation{
   font-size: 0.85rem;
   color: gray;
+  line-height: 18px;
 }
 .modal .modal-detail .genre-area{
   display: flex;
