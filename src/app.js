@@ -1,12 +1,7 @@
 import Loading from "./components/loading.js";
+import { MovieList } from "./components/MovieList.js";
 import { BASE_IMAGE_URL } from "./constants/config.js";
-import {
-  loadApiKey,
-  fetchMovieList,
-  searchMovie,
-  detailMovie,
-  getMovieAbout,
-} from "./services/api.js";
+import { searchMovie, detailMovie, getMovieAbout } from "./services/api.js";
 import { getMovieListStore, setMovieListStore } from "./utils/storage.js";
 import { throttle } from "./utils/throttle.js";
 
@@ -21,42 +16,8 @@ const $btnBookmark = document.querySelector("#btn-bookmark");
 // 로딩 클래스 추가
 const loading = new Loading("#loading");
 
-// 영화 리스트 아이템 설정
-const setMovieItem = (data) => {
-  if (data) {
-    $movieList.innerHTML = "";
-    const movieList = data
-      .map((e, i) => {
-        let title = e.title;
-        let grade = e.vote_average.toFixed(2);
-        let imgUrl = `${BASE_IMAGE_URL}${e.poster_path}` || "";
-        let classIdx = (i + 1).toString().padStart(2, "0");
-
-        return `
-        <li class="movie-item${classIdx}" data-id="${e.id}">
-          <div class="img-area">
-            <img
-              src="${imgUrl}"
-              alt="${title}"
-            />
-            <div class="img-area-info">
-              <h2 class="card-title">${title}</h2>
-              <p class="card-grade">
-                <i class="material-symbols-outlined">
-                  star_rate
-                </i> 
-                <span>${grade}</span>
-              </p>
-            </div>
-          </div>
-        </li>
-      `;
-      })
-      .join("");
-
-    $movieList.innerHTML = movieList;
-  }
-};
+// 영화 리스트 클래스 추가
+const movieList = new MovieList(".movie-list");
 
 // 영화 상세 보기
 const setMovieAboutItem = (data, url) => {
@@ -189,20 +150,10 @@ const setMovieAboutItem = (data, url) => {
 
 $btnBookmark.addEventListener("click", () => {
   const data = getMovieListStore;
-  setMovieItem(data);
+  movieList.setMovies(data);
 });
 
-// 영화 목록 조회
-async function getMovieList() {
-  loading.toggle(true);
-  await loadApiKey();
-  const res = await fetchMovieList();
-  loading.toggle(false);
-  const data = res.results;
-  setMovieItem(data);
-}
-
-(() => getMovieList())();
+(() => movieList.initialize())();
 
 // 영화 검색 쓰로틀링
 
@@ -213,11 +164,10 @@ $movieSearch.addEventListener(
     const res = await searchMovie(event.target.value);
     loading.toggle(false);
     if (event.target.value === "") {
-      return await getMovieList();
+      return movieList.initialize();
     }
     const data = res.results;
-
-    setMovieItem(data);
+    movieList.setMovies(data);
   }, 300)
 );
 
