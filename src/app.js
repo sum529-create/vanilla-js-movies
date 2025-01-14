@@ -1,10 +1,14 @@
+import Loading from "./components/loading.js";
+import { BASE_IMAGE_URL } from "./constants/config.js";
 import {
   loadApiKey,
   fetchMovieList,
   searchMovie,
   detailMovie,
   getMovieAbout,
-} from "./api.js";
+} from "./services/api.js";
+import { getMovieListStore, setMovieListStore } from "./utils/storage.js";
+import { throttle } from "./utils/throttle.js";
 
 const $movieList = document.querySelector(".movie-list");
 const $movieSearch = document.querySelector("#movie-search");
@@ -14,9 +18,8 @@ const $closeBtn = document.querySelector(".closeBtn");
 const $modalContent = document.querySelector(".modal-content");
 const $btnBookmark = document.querySelector("#btn-bookmark");
 
-const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/w500";
-
-const getMovieListStore = JSON.parse(localStorage.getItem("movieList"));
+// 로딩 클래스 추가
+const loading = new Loading("#loading");
 
 // 영화 리스트 아이템 설정
 const setMovieItem = (data) => {
@@ -160,10 +163,6 @@ const setMovieAboutItem = (data, url) => {
 
       let movieArr = getMovieListStore || [];
 
-      const setMovieList = () => {
-        localStorage.setItem("movieList", JSON.stringify(movieArr));
-      };
-
       if (getMovieListStore) {
         if (movieArr.some((e) => e.id === id)) {
           if (
@@ -172,7 +171,7 @@ const setMovieAboutItem = (data, url) => {
             )
           ) {
             movieArr = movieArr.filter((e) => e.id !== id);
-            setMovieList();
+            setMovieListStore(movieArr);
             window.location.reload();
             alert("북마크가 해제되었습니다.");
             return;
@@ -181,7 +180,7 @@ const setMovieAboutItem = (data, url) => {
         }
       }
       movieArr.push(movieInfo);
-      setMovieList();
+      setMovieListStore(movieArr);
       window.location.reload();
       alert("북마크에 추가되었습니다.");
     });
@@ -193,17 +192,12 @@ $btnBookmark.addEventListener("click", () => {
   setMovieItem(data);
 });
 
-// loading 적용
-const toggleLoading = (show) => {
-  document.querySelector("#loading").style.display = show ? "block" : "none";
-};
-
 // 영화 목록 조회
 async function getMovieList() {
-  toggleLoading(true);
+  loading.toggle(true);
   await loadApiKey();
   const res = await fetchMovieList();
-  toggleLoading(false);
+  loading.toggle(false);
   const data = res.results;
   setMovieItem(data);
 }
@@ -211,22 +205,13 @@ async function getMovieList() {
 (() => getMovieList())();
 
 // 영화 검색 쓰로틀링
-const throttle = (func, delay) => {
-  let timer;
-  return (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      func.apply(this, args);
-    }, delay);
-  };
-};
 
 $movieSearch.addEventListener(
   "input",
   throttle(async (event) => {
-    toggleLoading(true);
+    loading.toggle(true);
     const res = await searchMovie(event.target.value);
-    toggleLoading(false);
+    loading.toggle(false);
     if (event.target.value === "") {
       return await getMovieList();
     }

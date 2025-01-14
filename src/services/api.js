@@ -1,5 +1,5 @@
+import { YOUTUBE_BASE_URL } from "../constants/config.js";
 let MOVIE_FETCH_API_KEY = "";
-const YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v=";
 
 async function loadApiKey() {
   try {
