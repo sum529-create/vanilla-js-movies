@@ -21,34 +21,36 @@
     <title>영화 리스트</title>
   </head>
   <body>
+    <div class="cinema-screen"></div>
     <header>
       <div class="header-wrapper">
         <div class="title-area">
-          <h1>영화 검색</h1>
-          <p class="btn-bookmark" id="btn-bookmark">
-            <i class="material-symbols-outlined"> family_star </i>
-          </p>
+          <h1>CINEMA</h1>
+          <div class="search-area">
+            <div class="search-bar">
+              <input
+                type="text"
+                class="search-input"
+                id="movie-search"
+                placeholder="영화를 검색하세요.."
+              />
+              <i class="material-symbols-outlined"> search </i>
+            </div>
+          </div>
         </div>
-        <div class="search-bar">
-          <input
-            type="text"
-            class="search-input"
-            id="movie-search"
-            placeholder="영화를 검색하세요.."
-          />
-          <i class="material-symbols-outlined"> search </i>
-        </div>
+      </div>
+      <div class="btn-bookmark" id="btn-bookmark">
+        <i class="material-symbols-outlined">family_star</i>
       </div>
     </header>
     <main>
       <div class="main-wrapper">
         <ul class="movie-list"></ul>
-        <div class="loading-area" id="loading">
-          <i class="material-symbols-outlined spinner"> autorenew </i>
-          <span>Loading</span>
-        </div>
       </div>
     </main>
+    <div class="loading-area" id="loading">
+      <div class="spinner"></div>
+    </div>
     <div class="modal">
       <div class="dim"></div>
       <div class="modal-wrapper">
