@@ -25,6 +25,10 @@ export class MovieList {
   render() {
     this.$movieList.innerHTML = "";
 
+    if (this.data.length === 0) {
+      return (this.$movieList.innerHTML =
+        "<li class='no-data'>검색 결과가 없습니다.</li>");
+    }
     const movieList = this.data
       .map((e, i) => {
         let title = e.title;

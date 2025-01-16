@@ -8,6 +8,32 @@ import { throttle } from "./utils/throttle.js";
 const $movieList = document.querySelector(".movie-list");
 const $movieSearch = document.querySelector("#movie-search");
 const $btnBookmark = document.querySelector("#btn-bookmark");
+const $header = document.querySelector("header");
+const $mainSubTit = document.querySelector(".main-sub-tit");
+let timeout;
+
+// input 포커스 시 헤더 축소
+$movieSearch.addEventListener("focus", () => {
+  $header.classList.add("collapsed");
+});
+
+// 검색어 입력 시 헤더 상태 유지
+$movieSearch.addEventListener("input", () => {
+  if (timeout) clearTimeout(timeout);
+
+  if ($movieSearch.value.trim() !== "") {
+    $header.classList.add("collapsed");
+  }
+});
+
+// input 블러 시 조건부로 헤더 확장
+$movieSearch.addEventListener("blur", () => {
+  if ($movieSearch.value.trim() === "") {
+    timeout = setTimeout(() => {
+      $header.classList.remove("collapsed");
+    }, 200);
+  }
+});
 
 // 로딩 클래스 추가
 const loading = new Loading("#loading");
@@ -20,9 +46,24 @@ const modal = new Modal(".modal");
 const movieDetail = new MovieDetail();
 modal.initEventListeners();
 
+// 북마크 리스트 이벤트
+let isBookmarkChecked = false;
 $btnBookmark.addEventListener("click", () => {
-  const data = getMovieListStore;
-  movieList.setMovies(data);
+  isBookmarkChecked = !isBookmarkChecked;
+  if (isBookmarkChecked) {
+    $btnBookmark.classList.add("active");
+    $header.classList.add("collapsed");
+    $header.style.display = "none";
+    $mainSubTit.style.display = "block";
+    const data = getMovieListStore;
+    movieList.setMovies(data);
+  } else {
+    $btnBookmark.classList.remove("active");
+    $header.classList.remove("collapsed");
+    $header.style.display = "flex";
+    $mainSubTit.style.display = "none";
+    movieList.initialize();
+  }
 });
 
 (() => movieList.initialize())();
