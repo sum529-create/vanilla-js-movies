@@ -1,9 +1,12 @@
-// loading 적용
-// const toggleLoading = (show) => {
-//   document.querySelector("#loading").style.display = show ? "block" : "none";
-// };
-
+/**
+ * Loading 클래스
+ * @class
+ */
 export default class Loading {
+  /**
+   * @constructor
+   * @param {string} seletor - 로딩 요소의 CSS 선택자
+   */
   constructor(seletor) {
     this.$selector = document.querySelector(seletor);
   }
