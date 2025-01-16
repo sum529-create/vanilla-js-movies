@@ -39,10 +39,16 @@ export class MovieList {
         return `
         <li class="movie-item${classIdx}" data-id="${e.id}">
           <div class="img-area">
-            <img
-              src="${imgUrl}"
-              alt="${title}"
-            />
+            ${
+              e.poster_path
+                ? `
+              <img
+                src="${imgUrl}"
+                alt="${title}"
+              />
+              `
+                : ""
+            }
             <div class="img-area-info">
               <h2 class="card-title">${title}</h2>
               <p class="card-grade">

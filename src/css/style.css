@@ -390,6 +390,7 @@ main .movie-list li{
   background-color: #000;
   border-radius: 1rem;
   cursor: pointer;
+  aspect-ratio: 2 / 3;
 }
 main .movie-list li img{
   width: 100%;

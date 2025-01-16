@@ -65,7 +65,7 @@ class MovieDetail {
    * - 전달받은 영화 데이터를 기반으로 HTML 생성
    * - 영화 기본 정보, 포스터 이미지, 줄거리 등등
    */
-  createDetailHTML(data) {
+  createDetailHTML(data, url) {
     if (!data) return "";
     let imgUrlMo = `${BASE_IMAGE_URL}${data.backdrop_path}` || "";
     let imgUrl = `${BASE_IMAGE_URL}${data.poster_path}` || "";
@@ -110,8 +110,19 @@ class MovieDetail {
           />
           </div>
           <div class="action-area">
+          ${
+            url &&
+            `
             <button id="trailerBtn" class="btn btn-primary">예고편 보기</button>
-            <button id="moreBtn" class="btn">더보기</button>
+            
+            `
+          }
+            ${
+              data.homepage &&
+              `
+              <button id="moreBtn" class="btn">더보기</button>
+              `
+            }
           </div>
       `;
   }
@@ -188,12 +199,16 @@ class MovieDetail {
     const $trailerBtn = document.querySelector("#trailerBtn");
 
     // 외부 영화 소개 유튜브 사이트로 이동
-    $trailerBtn.addEventListener("click", () => {
-      window.open(url, "_blank");
-    });
-    $moreBtn.addEventListener("click", () => {
-      window.open(data.homepage, "_blank");
-    });
+    if (url) {
+      $trailerBtn.addEventListener("click", () => {
+        window.open(url, "_blank");
+      });
+    }
+    if (data.homepage) {
+      $moreBtn.addEventListener("click", () => {
+        window.open(data.homepage, "_blank");
+      });
+    }
   }
 }
 

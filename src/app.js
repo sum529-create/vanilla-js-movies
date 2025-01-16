@@ -94,7 +94,7 @@ async function openModal(e) {
     const movieUrl = await getMovieAbout(res.id);
 
     // 모달 콘텐츠 추가
-    const detailHTML = movieDetail.createDetailHTML(res);
+    const detailHTML = movieDetail.createDetailHTML(res, movieUrl);
     modal.setContent(detailHTML);
     modal.open();
 
