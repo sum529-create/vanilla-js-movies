@@ -76,9 +76,10 @@ git clone https://github.com/your-username/vanilla-js-movies.git
 
 ## 향후 계획
 
-- [ ] 다크 모드
-- [ ] 카테고리별 필터링
-- [ ] 반응형 디자인 개선
+- [ ] 라이트/다크 모드
+- [ ] 태그별 필터링
+- [ ] 페이지네이션 추가
+- [ ] sub nav 추가
 
 ---
 
