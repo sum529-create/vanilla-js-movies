@@ -12,7 +12,7 @@ async function loadApiKey() {
 }
 
 async function fetchMovieList(page) {
-  const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
+  const url = `https://api.themoviedb.org/3/movie/popular?include_adult=false&language=ko&page=${page}`;
   const options = {
     method: "GET",
     headers: {
@@ -31,7 +31,7 @@ async function fetchMovieList(page) {
 async function searchMovie(query) {
   let res = [];
 
-  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`;
+  const url = `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=ko&page=1`;
   const options = {
     method: "GET",
     headers: {
@@ -50,7 +50,7 @@ async function searchMovie(query) {
 }
 
 async function detailMovie(id) {
-  const url = `https://api.themoviedb.org/3/movie/${id}}?language=en-US`;
+  const url = `https://api.themoviedb.org/3/movie/${id}}?language=ko`;
   const options = {
     method: "GET",
     headers: {
@@ -67,7 +67,7 @@ async function detailMovie(id) {
 }
 
 async function getMovieAbout(movieId) {
-  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`;
+  const url = `https://api.themoviedb.org/3/movie/${movieId}/videos?language=ko`;
   const options = {
     method: "GET",
     headers: {
