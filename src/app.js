@@ -55,18 +55,27 @@ $btnBookmark.addEventListener("click", () => {
     $header.classList.add("collapsed");
     $header.style.display = "none";
     $mainSubTit.style.display = "block";
+
+    // 북마크 모드 설정
+    movieList.setBookmarkMode(true);
     const data = getMovieListStore;
-    movieList.setMovies(data);
+    if (data) {
+      movieList.setMovies(data, "replace");
+    }
   } else {
     $btnBookmark.classList.remove("active");
     $header.classList.remove("collapsed");
     $header.style.display = "flex";
     $mainSubTit.style.display = "none";
-    movieList.initialize();
+
+    // 일반 모드로 전환
+    movieList.setBookmarkMode(false);
+    movieList.setMovies([], "replace");
+    movieList.init();
   }
 });
 
-(() => movieList.initialize())();
+(() => movieList.init())();
 
 // 영화 검색 쓰로틀링
 $movieSearch.addEventListener(
@@ -76,10 +85,12 @@ $movieSearch.addEventListener(
     const res = await searchMovie(event.target.value);
     loading.toggle(false);
     if (event.target.value === "") {
-      return movieList.initialize();
+      movieList.setSearchMode(false);
+      return movieList.init();
     }
+    movieList.setSearchMode(true);
     const data = res.results;
-    movieList.setMovies(data);
+    movieList.setMovies(data, "replace");
   }, 300)
 );
 

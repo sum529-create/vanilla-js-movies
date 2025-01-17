@@ -11,9 +11,8 @@ async function loadApiKey() {
   }
 }
 
-async function fetchMovieList() {
-  const url =
-    "https://api.themoviedb.org/3/movie/popular?language=en-US&page=1";
+async function fetchMovieList(page) {
+  const url = `https://api.themoviedb.org/3/movie/popular?language=en-US&page=${page}`;
   const options = {
     method: "GET",
     headers: {
