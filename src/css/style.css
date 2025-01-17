@@ -15,6 +15,7 @@
   --header-title-size: 4rem;
   --header-padding: 1rem 2rem;
   --header-wrapper-aspect-ratio: 21/9;
+  --search-area-padding: 2rem 0;
   --main-padding: 0 2rem;
   --main-wrapper-padding: 1rem 2rem;
   --btn-bookmark-size: 50px;
@@ -53,7 +54,9 @@
 @media (max-width: 1024px) {
   :root{
     --header-padding: 0;
+    --search-area-padding: 2rem 1rem;
     --main-padding: 0;
+    --btn-bookmark-position: auto 1rem 1rem auto;
     --btn-bookmark-size: 40px;
     --card-list-gap: 1rem;
     --card-list-count: 4;
@@ -84,7 +87,6 @@
     --header-title-size: 3rem;
     --header-wrapper-aspect-ratio: 16/10;
     --main-wrapper-padding: 1rem;
-    --btn-bookmark-position: auto 1rem 1rem auto;
     --btn-bookmark-icon-size: 1.5rem;
     --card-list-gap: 0.75rem;
     --card-list-count: 2;
@@ -251,7 +253,7 @@ header .header-wrapper .title-area h1{
 header .search-area{
   position: relative;
   width: 100%;
-  padding: 2rem 0;
+  padding: var(--search-area-padding);
 }
 header .search-area .search-bar{
   width: 100%;
