@@ -1,6 +1,19 @@
 import { BASE_IMAGE_URL } from "../constants/config.js";
 import { fetchMovieList, loadApiKey } from "../services/api.js";
 
+/**
+ * MovieList 클래스
+ * 영화 목록을 관리하고 렌더링 하는 컴포넌트
+ * 무한 스크롤 기능을 구현하며,
+ * 북마크 모드 및 검색 모드를 처리합니다.
+ *
+ * @class
+ * @description
+ * 무한 스크롤 기능을 구현하며,
+ * 북마크 모드 및 검색 모드를 처리합니다.
+ *
+ * @param {string} selector - 영화 목록을 렌더링 할 Dom요소의 선택자
+ */
 export class MovieList {
   constructor(selector) {
     this.$movieList = document.querySelector(selector);
