@@ -17,10 +17,10 @@ TMDB API를 활용한 영화 검색 및 북마크 기능을 제공하는 바닐�
 
 ## 기술 스택
 
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- TMDB API
+![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+![TMDB](https://img.shields.io/badge/TMDB-01B4E4?style=flat&logo=themoviedatabase&logoColor=white)
 
 ## 프로젝트 구조
 
@@ -59,9 +59,9 @@ git clone https://github.com/your-username/vanilla-js-movies.git
 
 ## 스크린샷
 
-| 메인 화면                                 | 상세 정보                                  |
-| ----------------------------------------- | ------------------------------------------ |
-| ![메인](./src/images/screenshot-main.png) | ![상세](./src/images/screenshot-about.png) |
+| 메인 화면                                 | 상세 정보                                   |
+| ----------------------------------------- | ------------------------------------------- |
+| ![메인](./src/images/screenshot-main.png) | ![상세](./src/images/screenshot-detail.png) |
 
 ## 향후 계획
 
