@@ -23,7 +23,7 @@
   --btn-bookmark-icon-size: 2rem;
   --card-list-gap: 1.5rem;
   --card-list-count: 6;
-  --card-main-title-size: 1.125rem;
+  --card-main-title-size: 1rem;
   --card-sub-text: 0.9rem;
   --modal-width: 800px;
   --modal-max-width: auto;
@@ -60,7 +60,7 @@
     --btn-bookmark-size: 40px;
     --card-list-gap: 1rem;
     --card-list-count: 4;
-    --card-main-title-size: 1.25rem;
+    --card-main-title-size: 1.125rem;
     --modal-width: 70vw;
     --modal-max-width: 31.25rem;
     --modal-height: auto;
@@ -90,7 +90,7 @@
     --btn-bookmark-icon-size: 1.5rem;
     --card-list-gap: 0.75rem;
     --card-list-count: 2;
-    --card-main-title-size: 1rem;
+    --card-main-title-size: 1.25rem;
     --modal-width: calc(100vw - 3rem);
     --modal-detail-movie-plot-line-cnt: 3;
     --modal-detail-movie-rating-area-gap: 1rem;
@@ -358,8 +358,8 @@ main{
 }
 main .main-wrapper{
   max-width: 1200px;
+  min-height: calc(100vh - 100px);
   margin: 0 auto;
-  height: 100vh;
   position: relative;
   padding: var(--main-wrapper-padding);
   background-color: #1a1a1a;
@@ -376,12 +376,17 @@ main .movie-list{
   gap: var(--card-list-gap);
 }
 main .movie-list li.no-data{
-  width: 100%;
   background: none;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: none;
+  width: auto;
+  aspect-ratio: auto;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 main .movie-list li{
   width: calc((100% - ((var(--card-list-count) - 1) * var(--card-list-gap))) / var(--card-list-count));
@@ -402,6 +407,7 @@ main .movie-list li img{
 }
 main .movie-list li .img-area-info{
   position: absolute;
+  width: 80%;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
@@ -416,7 +422,7 @@ main .movie-list li .card-title{
   font-size: var(--card-main-title-size);
   color:var(--text-off-white);
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.2;
   word-break: keep-all;
   margin: 0.5rem 0;
 }
